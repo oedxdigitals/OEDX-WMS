@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between mb-3">
+
+<h2>Products</h2>
+
+<a href="{{ url_for('products.new') }}" class="btn btn-primary">
+
+<i class="bi bi-plus-circle"></i>
+
+Add Product
+
+</a>
+
+</div>
+
+<div class="card">
+
+<div class="card-body">
+
+<table class="table table-striped">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>SKU</th>
+
+<th>Category</th>
+
+<th>Unit</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for product in products %}
+
+<tr>
+
+<td>{{ product.id }}</td>
+<td>{{ product.name }}</td>
+<td>{{ product.sku }}</td>
+<td>{{ product.category }}</td>
+<td>{{ product.unit }}</td>
+
+<td>
+
+<a href="#" class="btn btn-sm btn-warning">
+Edit
+</a>
+
+<a href="#" class="btn btn-sm btn-danger">
+Delete
+</a>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="6" class="text-center">
+
+No products found.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

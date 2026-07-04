@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Add Product</h2>
+
+<form method="POST">
+
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.name.label }}
+        {{ form.name(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.sku.label }}
+        {{ form.sku(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.category.label }}
+        {{ form.category(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.unit.label }}
+        {{ form.unit(class="form-control") }}
+    </div>
+
+    {{ form.submit(class="btn btn-success") }}
+
+    <a href="{{ url_for('products.index') }}"
+       class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}
