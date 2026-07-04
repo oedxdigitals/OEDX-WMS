@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+Dashboard
+</h2>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h5>Total Products</h5>
+
+<h1>{{ total_products }}</h1>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h5>Total Batches</h5>
+
+<h1>{{ total_batches }}</h1>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+Dashboard
+
+</h2>
+
+<div class="row">
+
+<div class="col-md-3 mb-3">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h6>Total Products</h6>
+
+<h2>{{ total_products }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h6>Total Batches</h6>
+
+<h2>{{ total_batches }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h6>Goods In Today</h6>
+
+<h2>{{ goods_in_today }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h6>Goods Out Today</h6>
+
+<h2>{{ goods_out_today }}</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card shadow">
+
+<div class="card-header">
+
+Recent Activity
+
+</div>
+
+<div class="card-body">
+
+No warehouse activity yet.
+
+</div>
+
+</div>
+
+{% endblock %}
