@@ -6,6 +6,7 @@ from app.models.customer import Customer
 from app.models.batch import Batch
 from app.models.goods_in import GoodsIn
 from app.models.goods_out import GoodsOut
+from app.utils.auth import login_required
 
 dashboard_bp = Blueprint(
     "dashboard",
@@ -14,6 +15,7 @@ dashboard_bp = Blueprint(
 
 
 @dashboard_bp.route("/")
+@login_required
 def index():
 
     stats = {

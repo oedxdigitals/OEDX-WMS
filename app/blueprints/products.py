@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for
 from app.extensions import db
 from app.forms.product import ProductForm
 from app.models.product import Product
+from app.utils.auth import login_required
 
 products_bp = Blueprint(
     "products",
@@ -12,6 +13,7 @@ products_bp = Blueprint(
 
 
 @products_bp.route("/")
+@login_required
 def index():
     products = Product.query.order_by(Product.id.desc()).all()
 
@@ -22,6 +24,7 @@ def index():
 
 
 @products_bp.route("/new", methods=["GET", "POST"])
+@login_required
 def new():
     form = ProductForm()
 

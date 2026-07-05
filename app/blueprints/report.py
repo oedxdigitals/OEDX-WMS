@@ -5,6 +5,7 @@ from app.models.goods_in import GoodsIn
 from app.models.goods_out import GoodsOut
 from app.models.stock import StockMovement
 from app.models.batch import Batch
+from app.utils.auth import login_required
 
 report_bp = Blueprint(
     "report",
@@ -14,6 +15,7 @@ report_bp = Blueprint(
 
 
 @report_bp.route("/")
+@login_required
 def index():
 
     return render_template(

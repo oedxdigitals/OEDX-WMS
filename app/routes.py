@@ -9,6 +9,7 @@ from app.blueprints.stock import stock_bp
 from app.blueprints.reports import reports_bp
 from app.blueprints.settings import settings_bp
 from app.blueprints.report import report_bp
+from app.blueprints.auth import auth_bp
 
 
 def register_routes(app):
@@ -34,3 +35,5 @@ def register_routes(app):
     app.register_blueprint(settings_bp)
 
     app.register_blueprint(report_bp)
+
+    app.register_blueprint(auth_bp)

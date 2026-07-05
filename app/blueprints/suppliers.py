@@ -6,6 +6,7 @@ from flask import url_for
 from app.extensions import db
 from app.forms.supplier import SupplierForm
 from app.models.supplier import Supplier
+from app.utils.auth import login_required
 
 suppliers_bp = Blueprint(
     "suppliers",
@@ -31,6 +32,7 @@ def index():
     "/new",
     methods=["GET", "POST"]
 )
+@login_required
 def new():
 
     form = SupplierForm()

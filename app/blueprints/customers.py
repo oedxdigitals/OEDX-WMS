@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for
 from app.extensions import db
 from app.forms.customer import CustomerForm
 from app.models.customer import Customer
+from app.utils.auth import login_required
 
 customers_bp = Blueprint(
     "customers",
@@ -12,6 +13,7 @@ customers_bp = Blueprint(
 
 
 @customers_bp.route("/")
+@login_required
 def index():
 
     customers = Customer.query.order_by(
@@ -25,6 +27,7 @@ def index():
 
 
 @customers_bp.route("/new", methods=["GET", "POST"])
+@login_required
 def new():
 
     form = CustomerForm()
