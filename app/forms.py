@@ -38,3 +38,30 @@ class SupplierForm(FlaskForm):
     submit = SubmitField(
         "Save Supplier"
     )
+
+class CustomerForm(FlaskForm):
+
+    company_name = StringField(
+        "Company Name",
+        validators=[DataRequired()]
+    )
+
+    contact_person = StringField(
+        "Contact Person"
+    )
+
+    phone = StringField(
+        "Phone"
+    )
+
+    email = StringField(
+        "Email"
+    )
+
+    address = StringField(
+        "Address"
+    )
+
+    submit = SubmitField(
+        "Save Customer"
+    )
