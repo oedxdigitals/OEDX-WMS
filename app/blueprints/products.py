@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for
 
 from app.extensions import db
 from app.forms import ProductForm
-from app.models import Product
+from app.models.product import Product
 
 products_bp = Blueprint(
     "products",

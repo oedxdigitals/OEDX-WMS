@@ -1,25 +1,20 @@
 from flask import Flask
 
 from config import Config
-
-from app.extensions import db
-from app.extensions import migrate
+from app.extensions import db, migrate
 
 
 def create_app():
+    flask_app = Flask(__name__)
 
-    app = Flask(__name__)
+    flask_app.config.from_object(Config)
 
-    app.config.from_object(Config)
+    db.init_app(flask_app)
+    migrate.init_app(flask_app, db)
 
-    db.init_app(app)
-    migrate.init_app(app, db)
+    import app.models
 
     from app.routes import register_routes
+    register_routes(flask_app)
 
-    register_routes(app)
-
-    with app.app_context():
-        from app import models
-
-    return app
+    return flask_app

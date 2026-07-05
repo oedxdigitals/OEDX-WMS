@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 
-from app.models import Product, Batch
+from app.models.product import Product
+from app.models.batch import Batch
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
