@@ -6,53 +6,158 @@
 
 <div class="container mt-4">
 
-    <h2>Current Inventory</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-    <table class="table table-bordered table-striped">
+        <h2>Inventory</h2>
 
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Batch</th>
-                <th>Quantity</th>
-                <th>Location</th>
-                <th>Status</th>
-            </tr>
-        </thead>
+        <form method="GET" class="d-flex">
 
-        <tbody>
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                class="form-control me-2"
+                placeholder="Search product, batch or location">
 
-        {% for batch in batches %}
+            <button class="btn btn-primary">
+                Search
+            </button>
 
-        <tr>
+        </form>
 
-            <td>{{ batch.product.name }}</td>
+    </div>
 
-            <td>{{ batch.batch_number }}</td>
+    <div class="card shadow-sm">
 
-            <td>{{ batch.quantity }}</td>
+        <div class="card-body">
 
-            <td>{{ batch.warehouse_location }}</td>
+            <table class="table table-bordered table-hover align-middle">
 
-            <td>{{ batch.status }}</td>
+                <thead class="table-light">
 
-        </tr>
+                    <tr>
 
-        {% else %}
+                        <th>Product</th>
 
-        <tr>
+                        <th>Batch No.</th>
 
-            <td colspan="5" class="text-center">
-                No inventory found.
-            </td>
+                        <th>Location</th>
 
-        </tr>
+                        <th width="90">Quantity</th>
 
-        {% endfor %}
+                        <th width="140">Expiry Date</th>
 
-        </tbody>
+                        <th width="220">Status</th>
 
-    </table>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for batch in batches %}
+
+                    <tr>
+
+                        <td>{{ batch.product.name }}</td>
+
+                        <td>{{ batch.batch_number }}</td>
+
+                        <td>{{ batch.warehouse_location or "-" }}</td>
+
+                        <td>{{ batch.quantity }}</td>
+
+                        <td>
+
+                            {% if batch.expiry_date %}
+
+                                {{ batch.expiry_date }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <!-- Stock Status -->
+
+                            {% if batch.quantity <= 0 %}
+
+                                <span class="badge bg-danger">
+                                    Out of Stock
+                                </span>
+
+                            {% elif batch.quantity < 10 %}
+
+                                <span class="badge bg-warning text-dark">
+                                    Low Stock
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success">
+                                    In Stock
+                                </span>
+
+                            {% endif %}
+
+                            <!-- Expiry Status -->
+
+                            {% if batch.expiry_date %}
+
+                                {% set days = (batch.expiry_date - today).days %}
+
+                                {% if days < 0 %}
+
+                                    <span class="badge bg-danger">
+                                        Expired
+                                    </span>
+
+                                {% elif days <= 7 %}
+
+                                    <span class="badge bg-danger">
+                                        Expires in {{ days }} day{% if days != 1 %}s{% endif %}
+                                    </span>
+
+                                {% elif days <= 30 %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Expires in {{ days }} days
+                                    </span>
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="6" class="text-center text-muted">
+
+                            No inventory found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
 

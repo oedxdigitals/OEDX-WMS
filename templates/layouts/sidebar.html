@@ -1,82 +1,84 @@
-<div class="col-md-2 sidebar">
+<div class="col-md-2 bg-white border-end min-vh-100">
 
-<h3 class="text-center mt-3">
+    <div class="text-center py-4">
 
-OEDX WMS
+        <h2 class="fw-bold">OEDX<br>WMS</h2>
 
-</h3>
+    </div>
 
-<hr>
+    <hr>
 
-<ul class="nav flex-column">
+    <ul class="nav flex-column">
 
-<li class="nav-item">
-<a class="nav-link" href="/">
-<i class="bi bi-speedometer2"></i>
-Dashboard
-</a>
-</li>
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('dashboard.index') }}">
+                <i class="bi bi-speedometer2"></i>
+                Dashboard
+            </a>
+        </li>
 
-<li class="nav-item">
-<a class="nav-link" href="{{ url_for('products.index') }}">
-<i class="bi bi-box-seam"></i>
-Products
-</a>
-</li>
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('products.index') }}">
+                <i class="bi bi-box-seam"></i>
+                Products
+            </a>
+        </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="{{ url_for('suppliers.index') }}">
-        <i class="bi bi-truck"></i>
-        Suppliers
-    </a>
-</li>
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('suppliers.index') }}">
+                <i class="bi bi-truck"></i>
+                Suppliers
+            </a>
+        </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="{{ url_for('customers.index') }}">
-        <i class="bi bi-people"></i>
-        Customers
-    </a>
-</li>
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('customers.index') }}">
+                <i class="bi bi-people"></i>
+                Customers
+            </a>
+        </li>
 
-<li class="nav-item">
-    <a class="nav-link"
-       href="{{ url_for('goods_in.index') }}">
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('goods_in.index') }}">
+                <i class="bi bi-box-arrow-in-down"></i>
+                Goods In
+            </a>
+        </li>
 
-        <i class="bi bi-box-arrow-in-down"></i>
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('goods_out.index') }}">
+                <i class="bi bi-box-arrow-up"></i>
+                Goods Out
+            </a>
+        </li>
 
-        Goods In
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('inventory.index') }}">
+                <i class="bi bi-boxes"></i>
+                Inventory
+            </a>
+        </li>
 
-    </a>
-</li>
+        <li class="nav-item mb-2">
+            <a class="nav-link" href="{{ url_for('stock.index') }}">
+                <i class="bi bi-clock-history"></i>
+                Stock History
+            </a>
+        </li>
 
-<li class="nav-item">
-<a class="nav-link" href="{{ url_for('goods_out.index') }}">
-<i class="bi bi-upload"></i>
-Goods Out
-</a>
-</li>
+	<li class="nav-item">
+	    <a class="nav-link" href="{{ url_for('report.index') }}">
+    		<i class="bi bi-file-earmark-text"></i>
+    		Reports
+	    </a>
+	</li>
 
-<li class="nav-item">
-<a class="nav-link" href="{{ url_for('inventory.index') }}">
-<i class="bi bi-layers"></i>
-Inventory
-</a>
-</li>
+	<li class="nav-item">
+    	    <a class="nav-link" href="{{ url_for('settings.index') }}">
+        	Settings
+    	    </a>
+	</li>
 
-<li class="nav-item">
-<a class="nav-link" href="#">
-<i class="bi bi-file-earmark-text"></i>
-Reports
-</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="#">
-<i class="bi bi-gear"></i>
-Settings
-</a>
-</li>
-
-</ul>
+    </ul>
 
 </div>

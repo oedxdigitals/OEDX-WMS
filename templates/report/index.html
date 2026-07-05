@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Warehouse Reports</h2>
+
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Products</h5>
+                    <h1>{{ products }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Inventory Batches</h5>
+                    <h1>{{ inventory }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Goods In</h5>
+                    <h1>{{ goods_in }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Goods Out</h5>
+                    <h1>{{ goods_out }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Stock Movements</h5>
+                    <h1>{{ movements }}</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

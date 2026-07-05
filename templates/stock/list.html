@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Stock Movement{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>Stock Movement History</h2>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Batch</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Balance</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for movement in movements %}
+
+                    <tr>
+
+                        <td>{{ movement.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+
+                        <td>{{ movement.batch.product.name }}</td>
+
+                        <td>{{ movement.batch.batch_number }}</td>
+
+                        <td>
+
+                            {% if movement.movement_type == "IN" %}
+
+                                <span class="badge bg-success">IN</span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">OUT</span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>{{ movement.quantity }}</td>
+
+                        <td>{{ movement.balance }}</td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="6" class="text-center">
+                            No stock movements found.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
