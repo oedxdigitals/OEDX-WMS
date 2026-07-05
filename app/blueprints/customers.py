@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
 
 from app.extensions import db
-from app.forms import CustomerForm
+from app.forms.customer import CustomerForm
 from app.models.customer import Customer
 
 customers_bp = Blueprint(

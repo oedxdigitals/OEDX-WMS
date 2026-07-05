@@ -4,7 +4,7 @@ from flask import redirect
 from flask import url_for
 
 from app.extensions import db
-from app.forms import SupplierForm
+from app.forms.supplier import SupplierForm
 from app.models.supplier import Supplier
 
 suppliers_bp = Blueprint(
