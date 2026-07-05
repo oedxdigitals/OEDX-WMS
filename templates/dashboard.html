@@ -13,27 +13,58 @@
     <div class="row">
 
         <div class="col-md-3 mb-3">
-            <a href="{{ url_for('products.index') }}" class="btn btn-primary w-100">
-                Products
-            </a>
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Products</h5>
+                    <a href="{{ url_for('products.index') }}" class="btn btn-primary">
+                        Open
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-3 mb-3">
-            <a href="{{ url_for('suppliers.index') }}" class="btn btn-success w-100">
-                Suppliers
-            </a>
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Suppliers</h5>
+                    <a href="{{ url_for('suppliers.index') }}" class="btn btn-success">
+                        Open
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-3 mb-3">
-            <a href="{{ url_for('customers.index') }}" class="btn btn-warning w-100">
-                Customers
-            </a>
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Customers</h5>
+                    <a href="{{ url_for('customers.index') }}" class="btn btn-warning">
+                        Open
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-3 mb-3">
-            <a href="{{ url_for('goods_in.index') }}" class="btn btn-dark w-100">
-                Goods In
-            </a>
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Goods In</h5>
+                    <a href="{{ url_for('goods_in.index') }}" class="btn btn-dark">
+                        Open
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Inventory</h5>
+                    <a href="{{ url_for('inventory.index') }}" class="btn btn-info">
+                        Open
+                    </a>
+                </div>
+            </div>
         </div>
 
     </div>

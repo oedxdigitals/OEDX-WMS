@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Current Inventory</h2>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Batch</th>
+                <th>Quantity</th>
+                <th>Location</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for batch in batches %}
+
+        <tr>
+
+            <td>{{ batch.product.name }}</td>
+
+            <td>{{ batch.batch_number }}</td>
+
+            <td>{{ batch.quantity }}</td>
+
+            <td>{{ batch.warehouse_location }}</td>
+
+            <td>{{ batch.status }}</td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="5" class="text-center">
+                No inventory found.
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}
