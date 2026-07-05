@@ -33,6 +33,11 @@ class Supplier(db.Model):
     email = db.Column(db.String(100))
     address = db.Column(db.Text)
 
+    goods_in = db.relationship(
+        "GoodsIn",
+        backref="supplier",
+        lazy=True
+    )
 
 class Customer(db.Model):
     __tablename__ = "customers"
@@ -67,16 +72,53 @@ class Batch(db.Model):
     __tablename__ = "batches"
 
     id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
-    supplier_id = db.Column(db.Integer, db.ForeignKey("suppliers.id"))
-    batch_number = db.Column(db.String(100), unique=True, nullable=False)
-    manufacture_date = db.Column(db.Date)
-    expiry_date = db.Column(db.Date)
-    quantity = db.Column(db.Integer, default=0)
-    warehouse_location = db.Column(db.String(100))
-    status = db.Column(db.String(30), default="Available")
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    product_id = db.Column(
+        db.Integer,
+        db.ForeignKey("products.id"),
+        nullable=False
+    )
+
+    supplier_id = db.Column(
+        db.Integer,
+        db.ForeignKey("suppliers.id")
+    )
+
+    batch_number = db.Column(
+        db.String(100),
+        unique=True,
+        nullable=False
+    )
+
+    manufacture_date = db.Column(db.Date)
+
+    expiry_date = db.Column(db.Date)
+
+    quantity = db.Column(
+        db.Integer,
+        nullable=False,
+        default=0
+    )
+
+    warehouse_location = db.Column(
+        db.String(100)
+    )
+
+    status = db.Column(
+        db.String(30),
+        default="Available"
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+    stock_movements = db.relationship(
+        "StockMovement",
+        backref="batch",
+        lazy=True
+    )
 
 class GoodsIn(db.Model):
     __tablename__ = "goods_in"
@@ -103,10 +145,39 @@ class GoodsInItem(db.Model):
     __tablename__ = "goods_in_items"
 
     id = db.Column(db.Integer, primary_key=True)
-    goods_in_id = db.Column(db.Integer, db.ForeignKey("goods_in.id"))
-    batch_id = db.Column(db.Integer, db.ForeignKey("batches.id"))
-    quantity = db.Column(db.Integer, default=0)
 
+    goods_in_id = db.Column(
+        db.Integer,
+        db.ForeignKey("goods_in.id"),
+        nullable=False
+    )
+
+    product_id = db.Column(
+        db.Integer,
+        db.ForeignKey("products.id"),
+        nullable=False
+    )
+
+    batch_id = db.Column(
+        db.Integer,
+        db.ForeignKey("batches.id"),
+        nullable=False
+    )
+
+    quantity = db.Column(
+        db.Integer,
+        nullable=False
+    )
+
+    product = db.relationship(
+        "Product",
+        lazy=True
+    )
+
+    batch = db.relationship(
+        "Batch",
+        lazy=True
+    )
 
 class GoodsOut(db.Model):
     __tablename__ = "goods_out"

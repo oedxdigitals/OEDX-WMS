@@ -40,15 +40,52 @@
 
 <tbody>
 
+{% for record in records %}
+
 <tr>
 
-<td colspan="6" class="text-center">
+    <td>{{ record.reference_no }}</td>
 
-No Goods In records.
+    <td>
+        {% if record.supplier_id %}
+            {{ record.supplier.company_name if record.supplier else "-" }}
+        {% else %}
+            -
+        {% endif %}
+    </td>
 
-</td>
+    <td>{{ record.container_number }}</td>
+
+    <td>{{ record.truck_number }}</td>
+
+    <td>{{ record.received_date.strftime("%Y-%m-%d") }}</td>
+
+    <td>
+
+	<a href="{{ url_for('goods_in.items', goods_in_id=record.id) }}"
+	class="btn btn-primary btn-sm">
+
+	Items
+
+	</a>
+
+    </td>
 
 </tr>
+
+{% else %}
+
+<tr>
+
+    <td colspan="6" class="text-center">
+
+        No Goods In records.
+
+    </td>
+
+</tr>
+
+{% endfor %}
 
 </tbody>
 

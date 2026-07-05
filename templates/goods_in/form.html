@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>New Goods In</h2>
+
+        <a href="{{ url_for('goods_in.index') }}"
+           class="btn btn-secondary">
+            Back
+        </a>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                {{ form.hidden_tag() }}
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.reference_no.label }}
+
+                        {{ form.reference_no(class="form-control") }}
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.supplier_id.label }}
+
+                        {{ form.supplier_id(class="form-select") }}
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.container_number.label }}
+
+                        {{ form.container_number(class="form-control") }}
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        {{ form.truck_number.label }}
+
+                        {{ form.truck_number(class="form-control") }}
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form.driver_name.label }}
+
+                    {{ form.driver_name(class="form-control") }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form.remarks.label }}
+
+                    {{ form.remarks(class="form-control") }}
+
+                </div>
+
+                {{ form.submit(class="btn btn-success") }}
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
