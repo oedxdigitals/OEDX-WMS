@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Goods Out Items{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Goods Out Items</h2>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            Issue Stock
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+
+                    {{ form.batch_id.label }}
+
+                    {{ form.batch_id(class="form-select") }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form.quantity.label }}
+
+                    {{ form.quantity(class="form-control") }}
+
+                </div>
+
+                {{ form.submit(class="btn btn-danger") }}
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            Issued Items
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped">
+
+                <thead>
+
+                    <tr>
+                        <th>Product</th>
+                        <th>Batch</th>
+                        <th>Quantity</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for item in items %}
+
+                    <tr>
+
+                        <td>{{ item.batch.product.name }}</td>
+
+                        <td>{{ item.batch.batch_number }}</td>
+
+                        <td>{{ item.quantity }}</td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="3" class="text-center">
+                            No items issued yet.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
