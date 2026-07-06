@@ -7,6 +7,7 @@ from app.extensions import db
 from app.forms.supplier import SupplierForm
 from app.models.supplier import Supplier
 from app.utils.auth import login_required
+from app.utils.roles import roles_required
 
 suppliers_bp = Blueprint(
     "suppliers",
@@ -16,8 +17,9 @@ suppliers_bp = Blueprint(
 
 
 @suppliers_bp.route("/")
+@login_required
+@roles_required("Admin", "Supervisor")
 def index():
-
     suppliers = Supplier.query.order_by(
         Supplier.company_name
     ).all()
@@ -28,13 +30,10 @@ def index():
     )
 
 
-@suppliers_bp.route(
-    "/new",
-    methods=["GET", "POST"]
-)
+@suppliers_bp.route("/new", methods=["GET", "POST"])
 @login_required
+@roles_required("Admin")
 def new():
-
     form = SupplierForm()
 
     if form.validate_on_submit():

@@ -1,13 +1,11 @@
 # Python cache
 __pycache__/
 *.pyc
-
-# Database
-database/*.db
-
-# Virtual environment
+*.pyo
+*.sqlite3
+.env
+.venv/
 venv/
 
-# OS / editor files
-.DS_Store
-.vscode/
+database/*.db
+instance/

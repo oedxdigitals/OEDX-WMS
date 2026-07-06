@@ -10,6 +10,7 @@ from app.models.goods_out_item import GoodsOutItem
 from app.models.customer import Customer
 from app.models.batch import Batch
 from app.models.stock import StockMovement
+from app.utils.roles import roles_required
 from app.utils.auth import login_required
 
 
@@ -22,6 +23,11 @@ goods_out_bp = Blueprint(
 
 @goods_out_bp.route("/")
 @login_required
+@roles_required(
+    "Admin",
+    "Supervisor",
+    "Warehouse Keeper",
+)
 def index():
 
     records = GoodsOut.query.order_by(
@@ -39,6 +45,11 @@ def index():
     methods=["GET", "POST"]
 )
 @login_required
+@roles_required(
+    "Admin",
+    "Supervisor",
+    "Warehouse Keeper",
+)
 def new():
 
     form = GoodsOutForm()
@@ -90,6 +101,11 @@ def new():
     methods=["GET", "POST"]
 )
 @login_required
+@roles_required(
+    "Admin",
+    "Supervisor",
+    "Warehouse Keeper",
+)
 def items(goods_out_id):
 
     goods_out = GoodsOut.query.get_or_404(goods_out_id)

@@ -13,6 +13,7 @@ from app.models.product import Product
 from app.models.batch import Batch
 from app.models.stock import StockMovement
 from app.utils.auth import login_required
+from app.utils.roles import roles_required
 
 
 goods_in_bp = Blueprint(
@@ -24,6 +25,11 @@ goods_in_bp = Blueprint(
 
 @goods_in_bp.route("/")
 @login_required
+@roles_required(
+    "Admin",
+    "Supervisor",
+    "Warehouse Keeper",
+)
 def index():
     records = GoodsIn.query.order_by(GoodsIn.id.desc()).all()
 
@@ -35,6 +41,11 @@ def index():
 
 @goods_in_bp.route("/new", methods=["GET", "POST"])
 @login_required
+@roles_required(
+    "Admin",
+    "Supervisor",
+    "Warehouse Keeper",
+)
 def new():
     form = GoodsInForm()
 
@@ -74,6 +85,11 @@ def new():
 
 @goods_in_bp.route("/<int:goods_in_id>/items", methods=["GET", "POST"])
 @login_required
+@roles_required(
+    "Admin",
+    "Supervisor",
+    "Warehouse Keeper",
+)
 def items(goods_in_id):
 
     goods_in = GoodsIn.query.get_or_404(goods_in_id)

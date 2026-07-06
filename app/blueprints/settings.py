@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from app.utils.auth import login_required
+from app.utils.roles import roles_required
 
 settings_bp = Blueprint(
     "settings",
@@ -10,6 +11,8 @@ settings_bp = Blueprint(
 
 @settings_bp.route("/")
 @login_required
+@roles_required("Admin")
+
 def index():
 
     return render_template(

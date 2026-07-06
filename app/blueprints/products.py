@@ -4,6 +4,7 @@ from app.extensions import db
 from app.forms.product import ProductForm
 from app.models.product import Product
 from app.utils.auth import login_required
+from app.utils.roles import roles_required
 
 products_bp = Blueprint(
     "products",
@@ -14,6 +15,7 @@ products_bp = Blueprint(
 
 @products_bp.route("/")
 @login_required
+@roles_required("Admin", "Supervisor")
 def index():
     products = Product.query.order_by(Product.id.desc()).all()
 
@@ -25,6 +27,7 @@ def index():
 
 @products_bp.route("/new", methods=["GET", "POST"])
 @login_required
+@roles_required("Admin")
 def new():
     form = ProductForm()
 

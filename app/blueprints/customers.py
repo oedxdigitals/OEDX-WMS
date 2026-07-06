@@ -4,6 +4,7 @@ from app.extensions import db
 from app.forms.customer import CustomerForm
 from app.models.customer import Customer
 from app.utils.auth import login_required
+from app.utils.roles import roles_required
 
 customers_bp = Blueprint(
     "customers",
@@ -14,8 +15,8 @@ customers_bp = Blueprint(
 
 @customers_bp.route("/")
 @login_required
+@roles_required("Admin", "Supervisor")
 def index():
-
     customers = Customer.query.order_by(
         Customer.company_name
     ).all()
@@ -28,8 +29,8 @@ def index():
 
 @customers_bp.route("/new", methods=["GET", "POST"])
 @login_required
+@roles_required("Admin")
 def new():
-
     form = CustomerForm()
 
     if form.validate_on_submit():

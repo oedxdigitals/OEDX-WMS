@@ -6,6 +6,7 @@ from sqlalchemy import or_
 from app.models.batch import Batch
 from app.models.product import Product
 from app.utils.auth import login_required
+from app.utils.roles import roles_required
 
 inventory_bp = Blueprint(
     "inventory",
@@ -16,6 +17,11 @@ inventory_bp = Blueprint(
 
 @inventory_bp.route("/")
 @login_required
+@roles_required(
+    "Admin",
+    "Supervisor",
+    "Warehouse Keeper",
+)
 def index():
 
     search = request.args.get(
