@@ -3,13 +3,16 @@ from flask import Blueprint, render_template, redirect, url_for
 from app.extensions import db
 from app.forms.customer import CustomerForm
 from app.models.customer import Customer
+
 from app.utils.auth import login_required
 from app.utils.roles import roles_required
+from app.utils.audit import log_action
+
 
 customers_bp = Blueprint(
     "customers",
     __name__,
-    url_prefix="/customers"
+    url_prefix="/customers",
 )
 
 
@@ -17,13 +20,14 @@ customers_bp = Blueprint(
 @login_required
 @roles_required("Admin", "Supervisor")
 def index():
+
     customers = Customer.query.order_by(
         Customer.company_name
     ).all()
 
     return render_template(
         "customers/list.html",
-        customers=customers
+        customers=customers,
     )
 
 
@@ -31,6 +35,7 @@ def index():
 @login_required
 @roles_required("Admin")
 def new():
+
     form = CustomerForm()
 
     if form.validate_on_submit():
@@ -40,15 +45,23 @@ def new():
             contact_person=form.contact_person.data,
             phone=form.phone.data,
             email=form.email.data,
-            address=form.address.data
+            address=form.address.data,
         )
 
         db.session.add(customer)
         db.session.commit()
 
-        return redirect(url_for("customers.index"))
+        log_action(
+            action="CREATE",
+            module="Customers",
+            description=f"Created customer: {customer.company_name}",
+        )
+
+        return redirect(
+            url_for("customers.index")
+        )
 
     return render_template(
         "customers/form.html",
-        form=form
+        form=form,
     )

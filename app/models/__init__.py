@@ -8,3 +8,4 @@ from .goods_in import GoodsIn, GoodsInItem
 from .goods_out import GoodsOut
 from .goods_out_item import GoodsOutItem
 from .stock import StockMovement
+from app.models.audit_log import AuditLog
