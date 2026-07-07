@@ -1,92 +1,217 @@
 {% extends "base.html" %}
 
+{% block title %}Products{% endblock %}
+
 {% block content %}
 
-<div class="d-flex justify-content-between mb-3">
+<div class="d-flex justify-content-between align-items-center mb-3">
 
-<h2>Products</h2>
+    <h2>Products</h2>
 
-<a href="{{ url_for('products.new') }}" class="btn btn-primary">
+    <a href="{{ url_for('products.new') }}"
+       class="btn btn-primary">
 
-<i class="bi bi-plus-circle"></i>
+        <i class="bi bi-plus-circle"></i>
 
-Add Product
+        Add Product
 
-</a>
-
-</div>
-
-<div class="card">
-
-<div class="card-body">
-
-<table class="table table-striped">
-
-<thead>
-
-<tr>
-
-<th>ID</th>
-
-<th>Name</th>
-
-<th>SKU</th>
-
-<th>Category</th>
-
-<th>Unit</th>
-
-<th>Actions</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-{% for product in products %}
-
-<tr>
-
-<td>{{ product.id }}</td>
-<td>{{ product.name }}</td>
-<td>{{ product.sku }}</td>
-<td>{{ product.category }}</td>
-<td>{{ product.unit }}</td>
-
-<td>
-
-<a href="#" class="btn btn-sm btn-warning">
-Edit
-</a>
-
-<a href="#" class="btn btn-sm btn-danger">
-Delete
-</a>
-
-</td>
-
-</tr>
-
-{% else %}
-
-<tr>
-
-<td colspan="6" class="text-center">
-
-No products found.
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
+    </a>
 
 </div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                {{ message }}
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+                </button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <form method="GET" class="row mb-3">
+
+            <div class="col-md-10">
+
+                <input
+                    type="text"
+                    class="form-control"
+                    name="search"
+                    placeholder="Search by product name or SKU..."
+                    value="{{ search }}">
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button
+                    class="btn btn-dark w-100">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <table class="table table-hover table-bordered align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>SKU</th>
+
+                    <th>Unit</th>
+
+                    <th width="180">
+
+                        Actions
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for product in products.items %}
+
+                <tr>
+
+                    <td>{{ product.id }}</td>
+
+                    <td>{{ product.name }}</td>
+
+                    <td>{{ product.sku }}</td>
+
+                    <td>{{ product.unit }}</td>
+
+                    <td>
+
+                        <a
+                            href="{{ url_for('products.edit', id=product.id) }}"
+                            class="btn btn-warning btn-sm">
+
+                            <i class="bi bi-pencil"></i>
+
+                        </a>
+
+                        <a
+                            href="{{ url_for('products.delete', id=product.id) }}"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('Delete this product?');">
+
+                            <i class="bi bi-trash"></i>
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+
+                        No products found.
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <nav>
+
+            <ul class="pagination justify-content-center">
+
+                {% if products.has_prev %}
+
+                <li class="page-item">
+
+                    <a
+                        class="page-link"
+                        href="{{ url_for('products.index', page=products.prev_num, search=search) }}">
+
+                        Previous
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+                {% for page_num in products.iter_pages() %}
+
+                    {% if page_num %}
+
+                        <li class="page-item {% if page_num == products.page %}active{% endif %}">
+
+                            <a
+                                class="page-link"
+                                href="{{ url_for('products.index', page=page_num, search=search) }}">
+
+                                {{ page_num }}
+
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if products.has_next %}
+
+                <li class="page-item">
+
+                    <a
+                        class="page-link"
+                        href="{{ url_for('products.index', page=products.next_num, search=search) }}">
+
+                        Next
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+        </nav>
+
+    </div>
 
 </div>
 

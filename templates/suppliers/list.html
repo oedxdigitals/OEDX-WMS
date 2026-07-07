@@ -1,39 +1,107 @@
 {% extends "base.html" %}
 
+{% block title %}Suppliers{% endblock %}
+
 {% block content %}
 
 <div class="d-flex justify-content-between align-items-center mb-3">
 
     <h2>Suppliers</h2>
 
-    <a href="{{ url_for('suppliers.new') }}" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Add Supplier
+    <a href="{{ url_for('suppliers.new') }}"
+       class="btn btn-primary">
+
+        <i class="bi bi-plus-circle"></i>
+
+        Add Supplier
+
     </a>
 
 </div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                {{ message }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+                </button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
 
 <div class="card shadow-sm">
 
     <div class="card-body">
 
-        <table class="table table-bordered table-hover">
+        <form method="GET" class="row mb-3">
 
-            <thead class="table-light">
+            <div class="col-md-10">
+
+                <input
+                    type="text"
+                    class="form-control"
+                    name="search"
+                    placeholder="Search company, contact or phone..."
+                    value="{{ search }}">
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button
+                    class="btn btn-dark w-100">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <table class="table table-hover table-bordered align-middle">
+
+            <thead class="table-dark">
 
                 <tr>
+
                     <th>ID</th>
+
                     <th>Company</th>
-                    <th>Contact</th>
+
+                    <th>Contact Person</th>
+
                     <th>Phone</th>
+
                     <th>Email</th>
-                    <th width="140">Action</th>
+
+                    <th width="180">
+
+                        Actions
+
+                    </th>
+
                 </tr>
 
             </thead>
 
             <tbody>
 
-            {% for supplier in suppliers %}
+            {% for supplier in suppliers.items %}
 
                 <tr>
 
@@ -49,12 +117,21 @@
 
                     <td>
 
-                        <a href="#" class="btn btn-warning btn-sm">
-                            Edit
+                        <a
+                            href="{{ url_for('suppliers.edit', id=supplier.id) }}"
+                            class="btn btn-warning btn-sm">
+
+                            <i class="bi bi-pencil"></i>
+
                         </a>
 
-                        <a href="#" class="btn btn-danger btn-sm">
-                            Delete
+                        <a
+                            href="{{ url_for('suppliers.delete', id=supplier.id) }}"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('Delete this supplier?');">
+
+                            <i class="bi bi-trash"></i>
+
                         </a>
 
                     </td>
@@ -78,6 +155,66 @@
             </tbody>
 
         </table>
+
+        <nav>
+
+            <ul class="pagination justify-content-center">
+
+                {% if suppliers.has_prev %}
+
+                    <li class="page-item">
+
+                        <a
+                            class="page-link"
+                            href="{{ url_for('suppliers.index', page=suppliers.prev_num, search=search) }}">
+
+                            Previous
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+                {% for page_num in suppliers.iter_pages() %}
+
+                    {% if page_num %}
+
+                        <li class="page-item {% if page_num == suppliers.page %}active{% endif %}">
+
+                            <a
+                                class="page-link"
+                                href="{{ url_for('suppliers.index', page=page_num, search=search) }}">
+
+                                {{ page_num }}
+
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if suppliers.has_next %}
+
+                    <li class="page-item">
+
+                        <a
+                            class="page-link"
+                            href="{{ url_for('suppliers.index', page=suppliers.next_num, search=search) }}">
+
+                            Next
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            </ul>
+
+        </nav>
 
     </div>
 
